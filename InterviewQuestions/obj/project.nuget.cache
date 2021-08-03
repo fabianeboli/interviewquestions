@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "nT2J/1OL0u0fn4d/THG49d4Y/j06wG8TXqN8w/lZ9A7JbLYnEqQVTMefGhd8yiOKDQrSUuMdyRBYUmcGEp59nQ==",
+  "success": true,
+  "projectFilePath": "/home/fabian/RiderProjects/InterviewQuestions/InterviewQuestions/InterviewQuestions.csproj",
+  "expectedPackageFiles": [
+    "/home/fabian/.nuget/packages/htmlagilitypack/1.11.34/htmlagilitypack.1.11.34.nupkg.sha512"
+  ],
+  "logs": []
+}
