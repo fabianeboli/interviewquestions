@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "/home/fabian/.dotnet/store/|arch|/|tfm|",
-      "/home/fabian/.nuget/packages"
-    ]
-  }
-}
