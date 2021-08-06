@@ -1,42 +1,14 @@
-﻿using System;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using HtmlAgilityPack;
 using InterviewQuestions.enums;
 using InterviewQuestions.Module;
-using static InterviewQuestions.View.View;
-using static System.Math;
-using static System.String;
 
-namespace InterviewQuestions
+namespace InterviewQuestions.View
 {
-    class Program
+    public static class View
     {
-        static async Task Main(string[] args)
-        {
-            DisplayModules();
-            var collectionSets = new List<IQuestionSet>(new IQuestionSet[] {new Javascript(), new CSharp()});
-            var chosenModules = ChooseModule(); 
-            var questions = new List<string>();
-            var answers = new List<string>();
-
-
-            collectionSets.ForEach(set =>
-            {
-                if (!chosenModules.Contains(set.Language)) return;
-                questions.AddRange(set.GetQuestions());
-                answers.AddRange(set.GetAnswers());
-            });
-            
-            var maxAllowedNumber = Min(questions.Count, answers.Count);
-            Display(questions, answers, maxAllowedNumber, new Random());
-        }
-
-
-        private static void Display(IList<string> questions, IList<string> answers, int maxAllowedNumber,
+        public static void Display(IList<string> questions, IList<string> answers, int maxAllowedNumber,
             Random rand)
         {
             var shouldContinue = true;
@@ -71,7 +43,7 @@ namespace InterviewQuestions
             }
         }
 
-        private static string UserAnswer(IList<string> answers, int questionNumber)
+        public static string UserAnswer(IList<string> answers, int questionNumber)
         {
             Console.WriteLine("\nType your answer");
             var answer = Console.ReadLine();
@@ -82,5 +54,38 @@ namespace InterviewQuestions
                 $"{answers[questionNumber]}";
             return checkedAnswer;
         }
+
+        public static void DisplayModules()
+        {
+            var modules = Enum.GetNames(typeof(Language));
+            Console.WriteLine($"Choose language Module" +
+                              $"\nFor example type 1,2 to choose javascript and csharp module");
+
+            foreach (var (module, index) in modules.WithIndex())
+            {
+                Console.WriteLine($"{(index + 1).ToString()}) {module}");
+            }
+        }
+
+        public static IList<Language> ChooseModule()
+        {
+            var chosenModules = Array.Empty<string>();
+
+            while (chosenModules is {Length: 0})
+            {
+                chosenModules = Console.ReadLine()?.Trim().Split(",");
+            }
+
+            var languages = chosenModules
+                .Select(module => (Language) Enum
+                    .GetValues(typeof(Language))
+                    .GetValue(Convert.ToInt32(module)) - 1)
+                .ToList();
+
+            return languages;
+        }
+
+        private static IEnumerable<(T item, int index)> WithIndex<T>(this IEnumerable<T> self)
+            => self.Select((item, index) => (item, index));
     }
 }
